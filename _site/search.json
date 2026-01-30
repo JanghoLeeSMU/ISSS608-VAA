@@ -179,6 +179,6 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#essential-grammatical-elements-in-ggplot2-themes",
     "title": "Hands-on Exercise 1",
     "section": "1.9.3 Essential Grammatical Elements in ggplot2: themes",
-    "text": "1.9.3 Essential Grammatical Elements in ggplot2: themes\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_minimal()"
+    "text": "1.9.3 Essential Grammatical Elements in ggplot2: themes\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_minimal()\n\n\n\n\n\n\n\n\nEnd"
   }
 ]
