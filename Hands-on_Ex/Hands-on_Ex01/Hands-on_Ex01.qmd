@@ -219,6 +219,7 @@ ggplot(data=exam_data,
 ```
 
 ## 1.8.2 facet_grid() function
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x= MATHS)) +
