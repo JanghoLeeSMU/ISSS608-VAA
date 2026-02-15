@@ -397,5 +397,12 @@
     "title": "Hands-on Exercise 1",
     "section": "1.9.3 Essential Grammatical Elements in ggplot2: themes",
     "text": "1.9.3 Essential Grammatical Elements in ggplot2: themes\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_minimal()"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ISSS608-VAA",
+    "section": "",
+    "text": "Welcome to ISSS608 Visual Analytics and Application. In this website, you will find my coursework prepared for this course."
   }
 ]
