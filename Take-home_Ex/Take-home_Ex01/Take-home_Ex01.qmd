@@ -222,6 +222,7 @@ social_gpa_percent <- df %>%
 
 social_gpa_percent
 ```
+
 Students who spend less time on social media tend to have a higher proportion of “Good” and “Excellent” GPA levels. In contrast, those who spend more than three or four hours per day on social media show a larger share of “Average” or lower GPA categories. Although the differences are not extreme, the overall pattern suggests a negative association between heavy social media use and academic performance.
 
 ## **Insight 6 — Social Media Time and GPA**
@@ -275,6 +276,7 @@ ggplot(insight6_df, aes(x = Level, fill = GPA_group)) +
     panel.spacing = unit(1.5, "lines")
   )
 ```
+
 Students who report higher levels of adaptation and support tend to show a greater concentration of GPAs at or above the average level. In contrast, students who report low levels of support or adaptation are more likely to fall below the average GPA range. This pattern is visible across all three factors, especially for lecturer support and adaptation to the learning environment. The distributions gradually shift toward higher GPA categories as the perceived level of support increases. This suggests that positive learning environments and support systems may be associated with better academic outcomes.
 
 ## **Insight 7 — Correlation Heatmap**

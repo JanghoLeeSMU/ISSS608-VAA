@@ -1,5 +1,110 @@
 [
   {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "",
+    "text": "Universities are interested in understanding the factors that influence students’ academic performance. Besides individual ability, daily study habits, social activities, and the learning environment may all play important roles in shaping academic outcomes. Survey data provide an opportunity to explore how these behavioral and environmental factors are associated with students’ grade point average (GPA).\nThis dataset contains responses from university students on their demographic background, study behaviors, social media usage, and perceptions of the university environment, such as lecturer support, curriculum suitability, and learning facilities. By examining these variables together, we can identify patterns that may be linked to higher or lower academic performance.\n\n\n\nThe objective of this analysis is to explore the relationship between students’ academic performance (GPA) and selected behavioral and environmental factors using visual analytics techniques.\nTo achieve this objective, the following analytical questions are addressed:\n\nWhat is the overall distribution of GPA among students?\nDoes GPA vary by demographic factors such as year of study and gender?\nHow are study habits, such as time spent studying or using social media, associated with GPA?\nHow do students’ perceptions of university support and learning environment relate to their academic performance?\nWhich factors appear to be most strongly associated with GPA when viewed together?\n\nThese questions will be explored through a series of visualizations, with each chart highlighting a specific insight from the data."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#background",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#background",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "",
+    "text": "Universities are interested in understanding the factors that influence students’ academic performance. Besides individual ability, daily study habits, social activities, and the learning environment may all play important roles in shaping academic outcomes. Survey data provide an opportunity to explore how these behavioral and environmental factors are associated with students’ grade point average (GPA).\nThis dataset contains responses from university students on their demographic background, study behaviors, social media usage, and perceptions of the university environment, such as lecturer support, curriculum suitability, and learning facilities. By examining these variables together, we can identify patterns that may be linked to higher or lower academic performance."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#objective-and-analytical-questions",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#objective-and-analytical-questions",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "",
+    "text": "The objective of this analysis is to explore the relationship between students’ academic performance (GPA) and selected behavioral and environmental factors using visual analytics techniques.\nTo achieve this objective, the following analytical questions are addressed:\n\nWhat is the overall distribution of GPA among students?\nDoes GPA vary by demographic factors such as year of study and gender?\nHow are study habits, such as time spent studying or using social media, associated with GPA?\nHow do students’ perceptions of university support and learning environment relate to their academic performance?\nWhich factors appear to be most strongly associated with GPA when viewed together?\n\nThese questions will be explored through a series of visualizations, with each chart highlighting a specific insight from the data."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#dataset-overview",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#dataset-overview",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "2.1 Dataset Overview",
+    "text": "2.1 Dataset Overview\nThis dataset is based on a student survey that collects information on demographic characteristics, daily behaviors, and perceptions of the university environment. The survey includes variables related to academic performance, study habits, social media usage, and different aspects of university support.\nThe responses are mostly measured using categorical or Likert-scale questions, where values range from 1 to 5, representing increasing levels of intensity or agreement. For example, GPA is recorded in five categories, from “Poor” to “Excellent,” and many perception-based variables use a similar five-point scale."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#key-variables-used-in-the-analysis",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#key-variables-used-in-the-analysis",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "2.2 Key Variables Used in the Analysis",
+    "text": "2.2 Key Variables Used in the Analysis\nTo keep the analysis focused, a subset of variables is selected. These variables are grouped into four main categories: academic outcome, demographics, study behavior, and university environment.\nAcademic Outcome • GPA: Categorical variable representing academic performance, ranging from Poor to Excellent.\nDemographic Variables • Year: Student’s year of study (First-year to Graduated). • Gender: Student’s gender (Male or Female).\nStudy Behavior Variables • Time_Studying: Average daily time spent studying. • Time_SocialMedia: Average daily time spent on social media. • Time_Friends: Average daily time spent with friends.\nUniversity Environment Variables • Adapt_Learning_Uni: Level of adaptation to the university learning environment. • SupportOf_Lec: Perceived level of lecturer support. • SupportOf_Uni: Perceived level of university support. • Study_Methods: Perceived effectiveness of personal study methods.\nThese variables are selected because they represent key behavioral and environmental factors that may be associated with academic performance."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#loading-the-data",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#loading-the-data",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "3.1 Loading the Data",
+    "text": "3.1 Loading the Data\n\npacman::p_load(tidyverse)\npacman::p_load(readxl)\npacman::p_load(ggridges)\npacman::p_load(viridis)\npacman::p_load(forcats)\n\n\ndf &lt;- read_excel(\"Database paper.xlsx\")"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#data-cleaning-and-recoding",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#data-cleaning-and-recoding",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "3.2 Data Cleaning and Recoding",
+    "text": "3.2 Data Cleaning and Recoding\nMost variables in the dataset are coded from 1 to 5. These values represent ordered categories, such as levels of agreement or time ranges. To make the analysis clearer, selected variables are converted into factor types with meaningful labels.\n\ndf &lt;- df %&gt;%\n  mutate(\n    GPA = factor(GPA,\n                 levels = 1:5,\n                 labels = c(\"Poor\", \"Average\", \"Fair\", \"Good\", \"Excellent\")),\n\n    Year = factor(Year,\n                  levels = 1:5,\n                  labels = c(\"1st year\", \"2nd year\", \"3rd year\", \"4th year\", \"Graduated\")),\n\n    Gender = factor(Gender,\n                    levels = 1:2,\n                    labels = c(\"Male\", \"Female\")),\n\n    Time_Studying = factor(Time_Studying,\n                           levels = 1:5,\n                           labels = c(\"&lt;2h\", \"2–4h\", \"4–6h\", \"6–8h\", \"&gt;8h\")),\n\n    Time_SocicalMedia = factor(Time_SocicalMedia,\n                               levels = 1:5,\n                               labels = c(\"&lt;1h\", \"1–2h\", \"2–3h\", \"3–4h\", \"&gt;4h\")),\n\n    Time_Friends = factor(Time_Friends,\n                          levels = 1:5,\n                          labels = c(\"&lt;1h\", \"1–2h\", \"2–3h\", \"3–4h\", \"&gt;4h\"))\n  )"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#final-dataset-for-analysis",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#final-dataset-for-analysis",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "3.3 Final Dataset for Analysis",
+    "text": "3.3 Final Dataset for Analysis\nAfter recoding, the dataset is ready for visualization. All key variables are stored as categorical factors, making them suitable for bar charts, boxplots, and other comparative visualizations."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-1-distribution-of-gpa",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-1-distribution-of-gpa",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "Insight 1 — Distribution of GPA",
+    "text": "Insight 1 — Distribution of GPA\nQuestion: What is the overall distribution of GPA levels among students?\n\nggplot(df, aes(x = GPA)) +\n  geom_bar(fill = \"steelblue\") +\n  labs(\n    title = \"Distribution of GPA Levels\",\n    x = \"GPA Level\",\n    y = \"Number of Students\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nMost students fall into the middle GPA categories, especially “Fair” and “Good.” Only a small proportion are in the “Poor” or “Excellent” groups. This suggests that academic performance is generally concentrated around the average range rather than at the extremes."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-2-gpa-by-year-of-study",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-2-gpa-by-year-of-study",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "Insight 2 — GPA by Year of Study",
+    "text": "Insight 2 — GPA by Year of Study\nQuestion: Does GPA distribution differ across years of study?\n\nggplot(df, aes(x = Year, fill = GPA)) +\n  geom_bar(position = \"fill\") +\n  labs(\n    title = \"GPA Distribution by Year of Study\",\n    x = \"Year of Study\",\n    y = \"Proportion\",\n    fill = \"GPA Level\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nThe proportional distribution of GPA across different years of study shows relatively similar patterns among most groups. In each year, the majority of students fall into the “Fair” and “Good” categories, with only a small share in the “Poor” or “Excellent” levels. This suggests that academic performance is fairly consistent across different stages of university. There is no strong visual evidence that students in higher years systematically achieve better or worse GPA outcomes compared to those in earlier years."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-3-gpa-by-gender",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-3-gpa-by-gender",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "Insight 3 — GPA by Gender",
+    "text": "Insight 3 — GPA by Gender\nQuestion: Is there a difference in GPA distribution between male and female students?\n\nggplot(df, aes(x = Gender, fill = GPA)) +\n  geom_bar(position = \"fill\") +\n  labs(\n    title = \"GPA Distribution by Gender\",\n    x = \"Gender\",\n    y = \"Proportion\",\n    fill = \"GPA Level\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nMale and female students show very similar GPA distributions. In both groups, most students fall into the “Fair” and “Good” categories, with only a small share in the “Poor” or “Excellent” levels. This suggests that academic performance does not differ significantly by gender in this sample."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-4-study-time-and-gpa",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-4-study-time-and-gpa",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "Insight 4 — Study Time and GPA",
+    "text": "Insight 4 — Study Time and GPA\nQuestion: How is daily study time associated with GPA levels?\n\nggplot(df, aes(x = Time_Studying, fill = GPA)) +\n  geom_bar(position = \"fill\") +\n  labs(\n    title = \"GPA Distribution by Study Time\",\n    x = \"Daily Study Time\",\n    y = \"Proportion\",\n    fill = \"GPA Level\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nstudy_gpa_percent &lt;- df %&gt;%\n  count(Time_Studying, GPA) %&gt;%\n  group_by(Time_Studying) %&gt;%\n  mutate(prop = n / sum(n)) %&gt;%\n  ungroup() %&gt;%\n  select(Time_Studying, GPA, prop) %&gt;%\n  pivot_wider(\n    names_from = GPA,\n    values_from = prop,\n    values_fill = 0\n  ) %&gt;%\n  mutate(across(-Time_Studying, ~paste0(round(.x * 100, 1), \"%\")))\n\nstudy_gpa_percent\n\n# A tibble: 5 × 6\n  Time_Studying Poor  Average Fair  Good  Excellent\n  &lt;fct&gt;         &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    \n1 &lt;2h           5.9%  11.8%   52.9% 29.4% 0%       \n2 2–4h          12.8% 14.9%   48.9% 23.4% 0%       \n3 4–6h          9%    7.7%    53.8% 21.8% 7.7%     \n4 6–8h          2.4%  10.6%   50.6% 34.3% 2%       \n5 &gt;8h           3%    3.8%    55.6% 32.2% 5.4%     \n\n\nStudents who study longer hours show a higher proportion of “Good” and “Excellent” GPA levels. Those who study less are more concentrated in the “Average” and “Fair” categories. This suggests a positive relationship between study time and academic performance, where increased study time is generally associated with better GPA outcomes."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-5-social-media-time-and-gpa",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-5-social-media-time-and-gpa",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "Insight 5 — Social Media Time and GPA",
+    "text": "Insight 5 — Social Media Time and GPA\nQuestion: How is time spent on social media related to GPA levels?\n\nggplot(df, aes(x = Time_SocicalMedia, fill = GPA)) +\n  geom_bar(position = \"fill\") +\n  labs(\n    title = \"GPA Distribution by Social Media Usage\",\n    x = \"Daily Social Media Time\",\n    y = \"Proportion\",\n    fill = \"GPA Level\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nsocial_gpa_percent &lt;- df %&gt;%\n  count(Time_SocicalMedia, GPA) %&gt;%\n  group_by(Time_SocicalMedia) %&gt;%\n  mutate(prop = n / sum(n)) %&gt;%\n  ungroup() %&gt;%\n  select(Time_SocicalMedia, GPA, prop) %&gt;%\n  pivot_wider(\n    names_from = GPA,\n    values_from = prop,\n    values_fill = 0\n  ) %&gt;%\n  mutate(across(-Time_SocicalMedia, ~paste0(round(.x * 100, 1), \"%\")))\n\nsocial_gpa_percent\n\n# A tibble: 5 × 6\n  Time_SocicalMedia Poor  Average Fair  Good  Excellent\n  &lt;fct&gt;             &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    \n1 &lt;1h               1.3%  7%      52.8% 33.6% 5.2%     \n2 1–2h              1.8%  4.6%    55.6% 33.6% 4.4%     \n3 2–3h              3%    3.3%    55.7% 31.7% 6.3%     \n4 3–4h              5.2%  3.6%    52.9% 34.3% 3.9%     \n5 &gt;4h               8.3%  10.2%   54.1% 23.3% 4.1%     \n\n\nStudents who spend less time on social media tend to have a higher proportion of “Good” and “Excellent” GPA levels. In contrast, those who spend more than three or four hours per day on social media show a larger share of “Average” or lower GPA categories. Although the differences are not extreme, the overall pattern suggests a negative association between heavy social media use and academic performance."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-6-social-media-time-and-gpa",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-6-social-media-time-and-gpa",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "Insight 6 — Social Media Time and GPA",
+    "text": "Insight 6 — Social Media Time and GPA\nQuestion: How do students rate adaptation and support (lecturer and university)?\n\ninsight6_df &lt;- df %&gt;%\n  mutate(\n    GPA_num = as.numeric(GPA),\n    GPA_group = if_else(GPA_num &gt;= 3, \"Fair or above\", \"Below fair\"),\n    Adapt_Learning_Uni = factor(Adapt_Learning_Uni, levels = 1:5,\n                                labels = c(\"Not at all\", \"Little\", \"Moderate\", \"Quite\", \"Very\"),\n                                ordered = TRUE),\n    SupportOf_Uni = factor(SupportOf_Uni, levels = 1:5,\n                           labels = c(\"Not at all\", \"Little\", \"Moderate\", \"Quite\", \"Very\"),\n                           ordered = TRUE),\n    SupportOf_Lec = factor(SupportOf_Lec, levels = 1:5,\n                           labels = c(\"Not at all\", \"Little\", \"Moderate\", \"Quite\", \"Very\"),\n                           ordered = TRUE)\n  ) %&gt;%\n  select(GPA_group, Adapt_Learning_Uni, SupportOf_Uni, SupportOf_Lec) %&gt;%\n  pivot_longer(\n    cols = c(Adapt_Learning_Uni, SupportOf_Uni, SupportOf_Lec),\n    names_to = \"Factor\",\n    values_to = \"Level\"\n  ) %&gt;%\n  mutate(\n    Factor = recode(Factor,\n                    Adapt_Learning_Uni = \"Adaptation\",\n                    SupportOf_Uni      = \"University support\",\n                    SupportOf_Lec      = \"Lecturer support\")\n  )\n\nggplot(insight6_df, aes(x = Level, fill = GPA_group)) +\n  geom_bar(position = \"fill\") +\n  facet_wrap(~Factor, ncol = 1) +\n  labs(\n    title = \"GPA Level by Support and Adaptation\",\n    subtitle = \"Proportion of students below and above average GPA\",\n    x = \"Support / Adaptation Level\",\n    y = \"Proportion\",\n    fill = \"GPA Group\"\n  ) +\n  scale_y_continuous(labels = scales::percent) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(hjust = 0.5),\n    strip.text = element_text(face = \"bold\"),\n    panel.spacing = unit(1.5, \"lines\")\n  )\n\n\n\n\n\n\n\n\nStudents who report higher levels of adaptation and support tend to show a greater concentration of GPAs at or above the average level. In contrast, students who report low levels of support or adaptation are more likely to fall below the average GPA range. This pattern is visible across all three factors, especially for lecturer support and adaptation to the learning environment. The distributions gradually shift toward higher GPA categories as the perceived level of support increases. This suggests that positive learning environments and support systems may be associated with better academic outcomes."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-7-correlation-heatmap",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#insight-7-correlation-heatmap",
+    "title": "Take-Home_Ex01 - Survey Insights on GPA",
+    "section": "Insight 7 — Correlation Heatmap",
+    "text": "Insight 7 — Correlation Heatmap\nQuestion: Which behavioral and support factors are most associated with GPA?\n\nvars_for_corr &lt;- df %&gt;%\n  select(\n    GPA,\n    Time_Studying,\n    Time_SocicalMedia,\n    Time_Friends,\n    Adapt_Learning_Uni,\n    Study_Methods,\n    SupportOf_Lec,\n    SupportOf_Uni\n  ) %&gt;%\n  mutate(across(everything(), as.numeric))\n\ncorr_mat &lt;- cor(vars_for_corr, use = \"pairwise.complete.obs\", method = \"spearman\")\n\ncorr_long &lt;- as.data.frame(as.table(corr_mat)) %&gt;%\n  rename(var1 = Var1, var2 = Var2, corr = Freq)\n\nggplot(corr_long, aes(x = var1, y = var2, fill = corr)) +\n  geom_tile() +\n  scale_fill_gradient2(\n    low = \"blue\",\n    mid = \"white\",\n    high = \"red\",\n    midpoint = 0,\n    name = \"Correlation\"\n  ) +\n  labs(\n    title = \"Correlation Heatmap of GPA and Key Factors\",\n    x = NULL,\n    y = NULL\n  ) +\n  theme_minimal() +\n  theme(\n    axis.text.x = element_text(angle = 45, hjust = 1),\n    plot.title = element_text(hjust = 0.5)\n  )\n\n\n\n\n\n\n\n\nThe correlation heatmap shows the overall relationships between GPA, study habits, and perceived support factors. GPA tends to have a positive association with study time, study-method effectiveness, and learning adaptation. In contrast, time spent on social media may show a weaker or slightly negative relationship with GPA. The support-related variables also show positive relationships with each other, suggesting that students who feel supported by lecturers and the university are also more likely to adapt well to the learning environment. Overall, academic performance appears to be more closely related to study behavior and perceived support than to social activity factors."
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -7,11 +112,130 @@
     "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "ISSS608-VAA",
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
+    "title": "Hands-on_Ex02",
     "section": "",
-    "text": "Welcome to ISSS608 Visual Analytics and Application. In this website, you will find my coursework prepared for this course."
+    "text": "In this chapter, you will be introduced to several ggplot2 extensions for creating more elegant and effective statistical graphics"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#overview",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#overview",
+    "title": "Hands-on_Ex02",
+    "section": "",
+    "text": "In this chapter, you will be introduced to several ggplot2 extensions for creating more elegant and effective statistical graphics"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-libraries",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-libraries",
+    "title": "Hands-on_Ex02",
+    "section": "2.2.1 Installing and loading the required libraries",
+    "text": "2.2.1 Installing and loading the required libraries\n\npacman::p_load(ggrepel, patchwork, \n               ggthemes, hrbrthemes,\n               tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data",
+    "title": "Hands-on_Ex02",
+    "section": "2.2.2 Importing data",
+    "text": "2.2.2 Importing data\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggrepel",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggrepel",
+    "title": "Hands-on_Ex02",
+    "section": "2.3.1 Working with ggrepel",
+    "text": "2.3.1 Working with ggrepel\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  geom_label_repel(aes(label = ID), \n                   fontface = \"bold\") +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: ggrepel: 317 unlabeled data points (too many overlaps). Consider\nincreasing max.overlaps"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggtheme-package",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggtheme-package",
+    "title": "Hands-on_Ex02",
+    "section": "2.4.1 Working with ggtheme package",
+    "text": "2.4.1 Working with ggtheme package\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_economist()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-hrbthems-package",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-hrbthems-package",
+    "title": "Hands-on_Ex02",
+    "section": "2.4.2 Working with hrbthems package",
+    "text": "2.4.2 Working with hrbthems package\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_ipsum()\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_ipsum(axis_title_size = 18,\n              base_size = 15,\n              grid = \"Y\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#combining-two-ggplot2-graphs",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#combining-two-ggplot2-graphs",
+    "title": "Hands-on_Ex02",
+    "section": "2.5.2 Combining two ggplot2 graphs",
+    "text": "2.5.2 Combining two ggplot2 graphs\n\np1 + p2\n\n\n\n\n\n\n\n\n\n(p1 / p2) | p3\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\n((p1 / p2) | p3) + \n  plot_annotation(tag_levels = 'I')\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\np3 + inset_element(p2, \n                   left = 0.02, \n                   bottom = 0.7, \n                   right = 0.5, \n                   top = 1)\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\npatchwork &lt;- (p1 / p2) | p3\npatchwork & theme_economist()\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html",
+    "title": "Hands-on_Ex03",
+    "section": "",
+    "text": "In this hands-on exercise, you will learn how to create interactive data visualisation by using functions provided by ggiraph and plotlyr packages."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#tooltip-effect-with-tooltip-aesthetic",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#tooltip-effect-with-tooltip-aesthetic",
+    "title": "Hands-on_Ex03",
+    "section": "3.4.1 Tooltip effect with tooltip aesthetic",
+    "text": "3.4.1 Tooltip effect with tooltip aesthetic\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(\n    aes(tooltip = ID),\n    stackgroups = TRUE, \n    binwidth = 1, \n    method = \"histodot\") +\n  scale_y_continuous(NULL, \n                     breaks = NULL)\ngirafe(\n  ggobj = p,\n  width_svg = 6,\n  height_svg = 6*0.618\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-multiple-information-on-tooltip",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-multiple-information-on-tooltip",
+    "title": "Hands-on_Ex03",
+    "section": "3.5.1 Displaying multiple information on tooltip",
+    "text": "3.5.1 Displaying multiple information on tooltip\n\nexam_data$tooltip &lt;- c(paste0(     \n  \"Name = \", exam_data$ID,         \n  \"\\n Class = \", exam_data$CLASS)) \n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(\n    aes(tooltip = exam_data$tooltip), \n    stackgroups = TRUE,\n    binwidth = 1,\n    method = \"histodot\") +\n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(\n  ggobj = p,\n  width_svg = 8,\n  height_svg = 8*0.618\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#customising-tooltip-style",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#customising-tooltip-style",
+    "title": "Hands-on_Ex03",
+    "section": "3.6.1 Customising Tooltip style",
+    "text": "3.6.1 Customising Tooltip style\n\ntooltip_css &lt;- \"background-color:white; #&lt;&lt;\nfont-style:bold; color:black;\" #&lt;&lt;\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(tooltip = ID),                   \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618,\n  options = list(    #&lt;&lt;\n    opts_tooltip(    #&lt;&lt;\n      css = tooltip_css)) #&lt;&lt;\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-statistics-on-tooltip",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-statistics-on-tooltip",
+    "title": "Hands-on_Ex03",
+    "section": "3.6.2 Displaying statistics on tooltip",
+    "text": "3.6.2 Displaying statistics on tooltip\n\ntooltip &lt;- function(y, ymax, accuracy = .01) {\n  mean &lt;- scales::number(y, accuracy = accuracy)\n  sem &lt;- scales::number(ymax - y, accuracy = accuracy)\n  paste(\"Mean maths scores:\", mean, \"+/-\", sem)\n}\n\ngg_point &lt;- ggplot(data=exam_data, \n                   aes(x = RACE),\n) +\n  stat_summary(aes(y = MATHS, \n                   tooltip = after_stat(  \n                     tooltip(y, ymax))),  \n    fun.data = \"mean_se\", \n    geom = GeomInteractiveCol,  \n    fill = \"light blue\"\n  ) +\n  stat_summary(aes(y = MATHS),\n    fun.data = mean_se,\n    geom = \"errorbar\", width = 0.2, size = 0.2\n  )\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\ngirafe(ggobj = gg_point,\n       width_svg = 8,\n       height_svg = 8*0.618)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#hover-effect-with-data_id-aesthetic",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#hover-effect-with-data_id-aesthetic",
+    "title": "Hands-on_Ex03",
+    "section": "3.6.3 Hover effect with data_id aesthetic",
+    "text": "3.6.3 Hover effect with data_id aesthetic\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(           \n    aes(data_id = CLASS),             \n    stackgroups = TRUE,               \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618                      \n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#styling-hover-effect",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#styling-hover-effect",
+    "title": "Hands-on_Ex03",
+    "section": "3.6.4 Styling hover effect",
+    "text": "3.6.4 Styling hover effect\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(data_id = CLASS),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618,\n  options = list(                        \n    opts_hover(css = \"fill: #202020;\"),  \n    opts_hover_inv(css = \"opacity:0.2;\") \n  )                                        \n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#combining-tooltip-and-hover-effect",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#combining-tooltip-and-hover-effect",
+    "title": "Hands-on_Ex03",
+    "section": "3.6.5 Combining tooltip and hover effect",
+    "text": "3.6.5 Combining tooltip and hover effect\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(tooltip = CLASS, \n        data_id = CLASS),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618,\n  options = list(                        \n    opts_hover(css = \"fill: #202020;\"),  \n    opts_hover_inv(css = \"opacity:0.2;\") \n  )                                        \n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#click-effect-with-onclick",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#click-effect-with-onclick",
+    "title": "Hands-on_Ex03",
+    "section": "3.6.6 Click effect with onclick",
+    "text": "3.6.6 Click effect with onclick\n\nexam_data$onclick &lt;- sprintf(\"window.open(\\\"%s%s\\\")\",\n\"https://www.moe.gov.sg/schoolfinder?journey=Primary%20school\",\nas.character(exam_data$ID))\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(onclick = onclick),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#coordinated-multiple-views-with-ggiraph",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#coordinated-multiple-views-with-ggiraph",
+    "title": "Hands-on_Ex03",
+    "section": "3.6.7 Coordinated Multiple Views with ggiraph",
+    "text": "3.6.7 Coordinated Multiple Views with ggiraph\n\np1 &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(data_id = ID),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +  \n  coord_cartesian(xlim=c(0,100)) + \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n\np2 &lt;- ggplot(data=exam_data, \n       aes(x = ENGLISH)) +\n  geom_dotplot_interactive(              \n    aes(data_id = ID),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") + \n  coord_cartesian(xlim=c(0,100)) + \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n\ngirafe(code = print(p1 + p2), \n       width_svg = 6,\n       height_svg = 3,\n       options = list(\n         opts_hover(css = \"fill: #202020;\"),\n         opts_hover_inv(css = \"opacity:0.2;\")\n         )\n       )"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
@@ -40,13 +264,6 @@
     "title": "Hands-on Exercise 1",
     "section": "1.3.1 R Graphics VS ggplot",
     "text": "1.3.1 R Graphics VS ggplot\n\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"black\", \n                 fill=\"grey\") +\n  ggtitle(\"Distribution of Maths scores\")"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#essential-grammatical-elements-in-ggplot2-aesthetic-mappings",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#essential-grammatical-elements-in-ggplot2-aesthetic-mappings",
-    "title": "Hands-on Exercise 1",
-    "section": "1.5 Essential Grammatical Elements in ggplot2: Aesthetic mappings",
-    "text": "1.5 Essential Grammatical Elements in ggplot2: Aesthetic mappings\n\nggplot(data=exam_data, \n       aes(x= MATHS))"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_bar",
@@ -180,131 +397,5 @@
     "title": "Hands-on Exercise 1",
     "section": "1.9.3 Essential Grammatical Elements in ggplot2: themes",
     "text": "1.9.3 Essential Grammatical Elements in ggplot2: themes\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_minimal()"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
-    "title": "Hands-on_Ex02",
-    "section": "",
-    "text": "In this chapter, you will be introduced to several ggplot2 extensions for creating more elegant and effective statistical graphics"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#overview",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#overview",
-    "title": "Hands-on_Ex02",
-    "section": "",
-    "text": "In this chapter, you will be introduced to several ggplot2 extensions for creating more elegant and effective statistical graphics"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-libraries",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-libraries",
-    "title": "Hands-on_Ex02",
-    "section": "2.2.1 Installing and loading the required libraries",
-    "text": "2.2.1 Installing and loading the required libraries\n\npacman::p_load(ggrepel, patchwork, \n               ggthemes, hrbrthemes,\n               tidyverse)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data",
-    "title": "Hands-on_Ex02",
-    "section": "2.2.2 Importing data",
-    "text": "2.2.2 Importing data\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggrepel",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggrepel",
-    "title": "Hands-on_Ex02",
-    "section": "2.3.1 Working with ggrepel",
-    "text": "2.3.1 Working with ggrepel\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  geom_label_repel(aes(label = ID), \n                   fontface = \"bold\") +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: ggrepel: 317 unlabeled data points (too many overlaps). Consider\nincreasing max.overlaps"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggtheme-package",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggtheme-package",
-    "title": "Hands-on_Ex02",
-    "section": "2.4.1 Working with ggtheme package",
-    "text": "2.4.1 Working with ggtheme package\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_economist()"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-hrbthems-package",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-hrbthems-package",
-    "title": "Hands-on_Ex02",
-    "section": "2.4.2 Working with hrbthems package",
-    "text": "2.4.2 Working with hrbthems package\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_ipsum()\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_ipsum(axis_title_size = 18,\n              base_size = 15,\n              grid = \"Y\")"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#combining-two-ggplot2-graphs",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#combining-two-ggplot2-graphs",
-    "title": "Hands-on_Ex02",
-    "section": "2.5.2 Combining two ggplot2 graphs",
-    "text": "2.5.2 Combining two ggplot2 graphs\n\np1 + p2\n\n\n\n\n\n\n\n\n\n(p1 / p2) | p3\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\n((p1 / p2) | p3) + \n  plot_annotation(tag_levels = 'I')\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\np3 + inset_element(p2, \n                   left = 0.02, \n                   bottom = 0.7, \n                   right = 0.5, \n                   top = 1)\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\npatchwork &lt;- (p1 / p2) | p3\npatchwork & theme_economist()\n\n`geom_smooth()` using formula = 'y ~ x'"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#tooltip-effect-with-tooltip-aesthetic",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#tooltip-effect-with-tooltip-aesthetic",
-    "title": "Hands-on_Ex03",
-    "section": "3.4.1 Tooltip effect with tooltip aesthetic",
-    "text": "3.4.1 Tooltip effect with tooltip aesthetic\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(\n    aes(tooltip = ID),\n    stackgroups = TRUE, \n    binwidth = 1, \n    method = \"histodot\") +\n  scale_y_continuous(NULL, \n                     breaks = NULL)\ngirafe(\n  ggobj = p,\n  width_svg = 6,\n  height_svg = 6*0.618\n)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-multiple-information-on-tooltip",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-multiple-information-on-tooltip",
-    "title": "Hands-on_Ex03",
-    "section": "3.5.1 Displaying multiple information on tooltip",
-    "text": "3.5.1 Displaying multiple information on tooltip\n\nexam_data$tooltip &lt;- c(paste0(     \n  \"Name = \", exam_data$ID,         \n  \"\\n Class = \", exam_data$CLASS)) \n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(\n    aes(tooltip = exam_data$tooltip), \n    stackgroups = TRUE,\n    binwidth = 1,\n    method = \"histodot\") +\n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(\n  ggobj = p,\n  width_svg = 8,\n  height_svg = 8*0.618\n)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#customising-tooltip-style",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#customising-tooltip-style",
-    "title": "Hands-on_Ex03",
-    "section": "3.6.1 Customising Tooltip style",
-    "text": "3.6.1 Customising Tooltip style\n\ntooltip_css &lt;- \"background-color:white; #&lt;&lt;\nfont-style:bold; color:black;\" #&lt;&lt;\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(tooltip = ID),                   \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618,\n  options = list(    #&lt;&lt;\n    opts_tooltip(    #&lt;&lt;\n      css = tooltip_css)) #&lt;&lt;\n)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-statistics-on-tooltip",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-statistics-on-tooltip",
-    "title": "Hands-on_Ex03",
-    "section": "3.6.2 Displaying statistics on tooltip",
-    "text": "3.6.2 Displaying statistics on tooltip\n\ntooltip &lt;- function(y, ymax, accuracy = .01) {\n  mean &lt;- scales::number(y, accuracy = accuracy)\n  sem &lt;- scales::number(ymax - y, accuracy = accuracy)\n  paste(\"Mean maths scores:\", mean, \"+/-\", sem)\n}\n\ngg_point &lt;- ggplot(data=exam_data, \n                   aes(x = RACE),\n) +\n  stat_summary(aes(y = MATHS, \n                   tooltip = after_stat(  \n                     tooltip(y, ymax))),  \n    fun.data = \"mean_se\", \n    geom = GeomInteractiveCol,  \n    fill = \"light blue\"\n  ) +\n  stat_summary(aes(y = MATHS),\n    fun.data = mean_se,\n    geom = \"errorbar\", width = 0.2, size = 0.2\n  )\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\ngirafe(ggobj = gg_point,\n       width_svg = 8,\n       height_svg = 8*0.618)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#hover-effect-with-data_id-aesthetic",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#hover-effect-with-data_id-aesthetic",
-    "title": "Hands-on_Ex03",
-    "section": "3.6.3 Hover effect with data_id aesthetic",
-    "text": "3.6.3 Hover effect with data_id aesthetic\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(           \n    aes(data_id = CLASS),             \n    stackgroups = TRUE,               \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618                      \n)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#styling-hover-effect",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#styling-hover-effect",
-    "title": "Hands-on_Ex03",
-    "section": "3.6.4 Styling hover effect",
-    "text": "3.6.4 Styling hover effect\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(data_id = CLASS),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618,\n  options = list(                        \n    opts_hover(css = \"fill: #202020;\"),  \n    opts_hover_inv(css = \"opacity:0.2;\") \n  )                                        \n)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#combining-tooltip-and-hover-effect",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#combining-tooltip-and-hover-effect",
-    "title": "Hands-on_Ex03",
-    "section": "3.6.5 Combining tooltip and hover effect",
-    "text": "3.6.5 Combining tooltip and hover effect\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(tooltip = CLASS, \n        data_id = CLASS),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618,\n  options = list(                        \n    opts_hover(css = \"fill: #202020;\"),  \n    opts_hover_inv(css = \"opacity:0.2;\") \n  )                                        \n)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#click-effect-with-onclick",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#click-effect-with-onclick",
-    "title": "Hands-on_Ex03",
-    "section": "3.6.6 Click effect with onclick",
-    "text": "3.6.6 Click effect with onclick\n\nexam_data$onclick &lt;- sprintf(\"window.open(\\\"%s%s\\\")\",\n\"https://www.moe.gov.sg/schoolfinder?journey=Primary%20school\",\nas.character(exam_data$ID))\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(onclick = onclick),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#coordinated-multiple-views-with-ggiraph",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#coordinated-multiple-views-with-ggiraph",
-    "title": "Hands-on_Ex03",
-    "section": "3.6.7 Coordinated Multiple Views with ggiraph",
-    "text": "3.6.7 Coordinated Multiple Views with ggiraph\n\np1 &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(data_id = ID),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +  \n  coord_cartesian(xlim=c(0,100)) + \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n\np2 &lt;- ggplot(data=exam_data, \n       aes(x = ENGLISH)) +\n  geom_dotplot_interactive(              \n    aes(data_id = ID),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") + \n  coord_cartesian(xlim=c(0,100)) + \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n\ngirafe(code = print(p1 + p2), \n       width_svg = 6,\n       height_svg = 3,\n       options = list(\n         opts_hover(css = \"fill: #202020;\"),\n         opts_hover_inv(css = \"opacity:0.2;\")\n         )\n       )"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html",
-    "title": "Hands-on_Ex03",
-    "section": "",
-    "text": "In this hands-on exercise, you will learn how to create interactive data visualisation by using functions provided by ggiraph and plotlyr packages."
   }
 ]
