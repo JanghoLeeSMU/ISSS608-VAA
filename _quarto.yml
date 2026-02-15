@@ -19,7 +19,7 @@ website:
       - text: "Take-Home Exercise"
         menu:
           - text: "Take-Home Exercise 1"
-            href: "Take-Home Exercise/Take-Home_01/Take-Home Ex_01.html"
+            href: "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html"
 
     right:
       - text: Home
