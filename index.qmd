@@ -1,41 +1,60 @@
 ---
+title: ""
 page-layout: full
 ---
 
-<style>
+::: {.hero-section}
 
-.hero {
-  text-align: center;
-  padding: 80px 20px;
-}
+<div class="hero-content">
 
-.hero h1 {
-  font-size: 56px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
+<p class="hero-tag">ISSS608 · Visual Analytics and Application</p>
 
-.hero p {
-  font-size: 20px;
-  color: #6b7684;
-}
+# Data Analytics & Visualization Portfolio
 
-.hero img {
-  margin-top: 40px;
-  width: 700px;
-  border-radius: 12px;
-}
-
-</style>
-
-
-<div class="hero">
-
-# Data Analytics & Visualization
-
-Welcome to my coursework website for **ISSS608 Visual Analytics and Application**.  
-This website showcases my work in **data exploration, visualisation, and analytical techniques**.
-
-<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop">
+<p class="hero-subtitle">
+Welcome to my coursework website for ISSS608. This site presents my hands-on exercises,
+take-home exercises, and project work in data analysis, visualisation, and analytical storytelling.
+</p>
 
 </div>
+
+:::
+
+::: {.section-container}
+
+## About This Website
+
+This website documents my learning journey in **Visual Analytics and Application**.  
+It includes coursework, project outputs, and interactive visualisations developed throughout the course.
+
+<div class="info-grid">
+
+<div class="info-card">
+<h3>Hands-on Exercises</h3>
+<p>Practice-based exercises covering visual analytics techniques, tools, and implementation.</p>
+</div>
+
+<div class="info-card">
+<h3>Take-home Exercises</h3>
+<p>Applied assignments that combine analysis, interpretation, and visual communication.</p>
+</div>
+
+<div class="info-card">
+<h3>Project Work</h3>
+<p>Project-based outputs that demonstrate data exploration, storytelling, and design thinking.</p>
+</div>
+
+</div>
+
+## What You Will Find
+
+- Data exploration and transformation
+- Data visualisation and dashboard design
+- Interactive analytical workflows
+- Project documentation and insights
+
+## Course Focus
+
+This portfolio reflects my work in developing meaningful visualisations and using data to communicate insights clearly and effectively.
+
+:::

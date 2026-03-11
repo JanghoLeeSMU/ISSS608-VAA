@@ -401,8 +401,29 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Data Analytics & Visualization",
+    "title": "Data Analytics & Visualization Portfolio",
     "section": "",
-    "text": "Data Analytics & Visualization\nWelcome to my coursework website for ISSS608 Visual Analytics and Application.\nThis website showcases my work in data exploration, visualisation, and analytical techniques."
+    "text": "ISSS608 · Visual Analytics and Application\n\n\n\n\nWelcome to my coursework website for ISSS608. This site presents my hands-on exercises, take-home exercises, and project work in data analysis, visualisation, and analytical storytelling."
+  },
+  {
+    "objectID": "index.html#about-this-website",
+    "href": "index.html#about-this-website",
+    "title": "Data Analytics & Visualization Portfolio",
+    "section": "About This Website",
+    "text": "About This Website\nThis website documents my learning journey in Visual Analytics and Application.\nIt includes coursework, project outputs, and interactive visualisations developed throughout the course.\n\n\n\nHands-on Exercises\n\n\nPractice-based exercises covering visual analytics techniques, tools, and implementation.\n\n\n\n\nTake-home Exercises\n\n\nApplied assignments that combine analysis, interpretation, and visual communication.\n\n\n\n\nProject Work\n\n\nProject-based outputs that demonstrate data exploration, storytelling, and design thinking."
+  },
+  {
+    "objectID": "index.html#what-you-will-find",
+    "href": "index.html#what-you-will-find",
+    "title": "Data Analytics & Visualization Portfolio",
+    "section": "What You Will Find",
+    "text": "What You Will Find\n\nData exploration and transformation\nData visualisation and dashboard design\nInteractive analytical workflows\nProject documentation and insights"
+  },
+  {
+    "objectID": "index.html#course-focus",
+    "href": "index.html#course-focus",
+    "title": "Data Analytics & Visualization Portfolio",
+    "section": "Course Focus",
+    "text": "Course Focus\nThis portfolio reflects my work in developing meaningful visualisations and using data to communicate insights clearly and effectively."
   }
 ]

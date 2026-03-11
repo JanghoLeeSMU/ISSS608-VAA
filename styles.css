@@ -1,46 +1,135 @@
-/* background */
 body {
-  background: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f8fafc;
   color: #191f28;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.7;
 }
 
-/* navbar */
+/* Navbar */
 .navbar {
-  background: white;
-  border-bottom: 1px solid #f2f4f6;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e8eb;
 }
 
-/* navbar text */
-.navbar a {
-  color: #4e5968 !important;
-  font-weight: 500;
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: #222 !important;
+  font-weight: 600;
 }
 
-.navbar a:hover {
+.navbar-nav .nav-link:hover {
   color: #3182f6 !important;
 }
 
-/* title */
-h1 {
-  font-size: 48px;
+/* Hero */
+.hero-section {
+  background: linear-gradient(180deg, #eef5ff 0%, #f8fbff 100%);
+  padding: 90px 20px 80px 20px;
+  border-bottom: 1px solid #e6edf5;
+}
+
+.hero-content {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero-tag {
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 24px;
+  color: #4f7cff;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
 }
 
-/* subtitle text */
-p {
+.hero-section h1 {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  color: #191f28;
+}
+
+.hero-subtitle {
+  max-width: 760px;
+  font-size: 20px;
+  color: #5b6472;
+  margin-bottom: 0;
+}
+
+/* Main content */
+.section-container {
+  max-width: 1100px;
+  margin: 50px auto 70px auto;
+  padding: 0 20px;
+}
+
+.section-container h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #191f28;
+}
+
+.section-container p,
+.section-container li {
   font-size: 18px;
+  color: #4e5968;
+}
+
+/* Cards */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 30px 0 20px 0;
+}
+
+.info-card {
+  background: #ffffff;
+  border: 1px solid #e7edf3;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+}
+
+.info-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #191f28;
+}
+
+.info-card p {
+  font-size: 16px;
   color: #6b7684;
+  margin-bottom: 0;
 }
 
-/* content width */
-.main-container {
-  max-width: 1000px;
+/* Lists */
+ul {
+  padding-left: 1.2rem;
 }
 
-/* link */
-a {
-  color: #3182f6;
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-section h1 {
+    font-size: 42px;
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
 }
