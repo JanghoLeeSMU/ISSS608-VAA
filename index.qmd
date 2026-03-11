@@ -1,6 +1,41 @@
 ---
-title: "ISSS608-VAA"
+page-layout: full
 ---
 
-Welcome to ISSS608 **Visual Analytics and Application**. In this website, you will find my coursework prepared for this course.
+<style>
 
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero h1 {
+  font-size: 56px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 20px;
+  color: #6b7684;
+}
+
+.hero img {
+  margin-top: 40px;
+  width: 700px;
+  border-radius: 12px;
+}
+
+</style>
+
+
+<div class="hero">
+
+# Data Analytics & Visualization
+
+Welcome to my coursework website for **ISSS608 Visual Analytics and Application**.  
+This website showcases my work in **data exploration, visualisation, and analytical techniques**.
+
+<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop">
+
+</div>

@@ -1,1 +1,46 @@
-/* css styles */
+/* background */
+body {
+  background: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #191f28;
+}
+
+/* navbar */
+.navbar {
+  background: white;
+  border-bottom: 1px solid #f2f4f6;
+}
+
+/* navbar text */
+.navbar a {
+  color: #4e5968 !important;
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  color: #3182f6 !important;
+}
+
+/* title */
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+/* subtitle text */
+p {
+  font-size: 18px;
+  color: #6b7684;
+}
+
+/* content width */
+.main-container {
+  max-width: 1000px;
+}
+
+/* link */
+a {
+  color: #3182f6;
+}
