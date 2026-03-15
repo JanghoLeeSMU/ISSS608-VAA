@@ -425,5 +425,145 @@
     "title": "Data Analytics & Visualization Portfolio",
     "section": "Course Focus",
     "text": "Course Focus\nThis portfolio reflects my work in developing meaningful visualisations and using data to communicate insights clearly and effectively."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "",
+    "text": "The Home module serves as the landing page of the application. It introduces the project background, explains the significance of Singapore’s CPI, and provides users with a clear entry point to the main analytical modules of the application.\n\n\n\nThe interface includes the project title, a short project description, summary cards for data coverage and forecasting models, and navigation buttons linking to the main analytical modules.\n\n\n\nUsers can read the overview and navigate directly to the Data Explorer, Decomposition, or Forecasting module.\n\n\n\nUsers gain an initial understanding of the project scope, data coverage, and analysis workflow before exploring the detailed modules."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#objective",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#objective",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "",
+    "text": "The Home module serves as the landing page of the application. It introduces the project background, explains the significance of Singapore’s CPI, and provides users with a clear entry point to the main analytical modules of the application."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#storyboard-reference",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#storyboard-reference",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "",
+    "text": "The interface includes the project title, a short project description, summary cards for data coverage and forecasting models, and navigation buttons linking to the main analytical modules."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#user-interaction",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#user-interaction",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "",
+    "text": "Users can read the overview and navigate directly to the Data Explorer, Decomposition, or Forecasting module."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#expected-output",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#expected-output",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "",
+    "text": "Users gain an initial understanding of the project scope, data coverage, and analysis workflow before exploring the detailed modules."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#objective-1",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#objective-1",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "2.1 Objective",
+    "text": "2.1 Objective\nThis module enables users to explore historical Singapore CPI data across different CPI hierarchy levels and categories. It provides interactive visualisations and summary indicators that allow users to examine CPI trends, compare categories, and identify major contributors to inflation before performing deeper time-series analysis."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#data-preparation",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#data-preparation",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "2.2 Data Preparation",
+    "text": "2.2 Data Preparation\nThe CPI dataset is obtained from CEIC and contains monthly CPI indices for Singapore across multiple categories. The raw dataset is reshaped into a long format to facilitate interactive filtering and visualisation.\nThe data preparation process includes:\n\ntransforming the dataset into long format\nconverting the date variable into monthly time format\nensuring the time series is complete\nimputing missing observations when necessary\n\nThis structure allows the data to be filtered dynamically by category, hierarchy level, and date range within the Shiny application.\n\n2.2.1 Import Packages\n\npacman::p_load(readxl, tidyverse, timetk, \n               modeltime, tidymodels, \n               lubridate, anomalize, plotly, shiny)\n\n\n\n2.2.2 Import Data\n\ncpi_data_raw &lt;- read_excel(\"SG_CPI_012020_012026_Use.xlsx\")\n\n\n\n2.2.3 Data Transformation\n\ncpi_data_long &lt;- cpi_data_raw %&gt;%\n  pivot_longer(\n    cols = -Date,\n    names_to = \"Category\",\n    values_to = \"CPI_Value\"\n  ) %&gt;%\n  mutate(Date = floor_date(as.Date(Date), \"month\")) %&gt;%\n  group_by(Category) %&gt;%\n  arrange(Date) %&gt;%\n  pad_by_time(.date_var = Date, .by = \"month\") %&gt;%\n  mutate(CPI_Value = ts_impute_vec(CPI_Value, period = 1)) %&gt;%\n  fill(CPI_Value, .direction = \"downup\") %&gt;%\n  ungroup()"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#ui-design",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#ui-design",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "2.3 UI Design",
+    "text": "2.3 UI Design\nPrototype\nThe following shows the prototype of the R Shiny application that will be developed.\n\n\n\n  \n    \n    \n      Prototype of the CPI exploratory dashboard.\n    \n  \n\n  \n    \n    \n      Prototype of the CPI data table explorer with export options.\n    \n  \n\n\nThe Data Explorer module is designed as an interactive dashboard that allows users to explore CPI patterns across categories and time periods.\nThe interface consists of two main sections: a Control Panel and a Main Visualisation Panel.\n\n2.3.1 Control Panel\nThe control panel allows users to configure the analysis through several interactive inputs. These include:\n\nHierarchy Level Selection – Allows users to select the CPI hierarchy level, including Top Level, Major Group, Subcategory, or Detailed Class.\nDivision Selector – Filters CPI categories within a specific division.\nSeries Selector – Allows users to choose up to three CPI series for comparison.\nDate Range Filter – A slider control that enables users to select the time period for analysis.\nSmoothing Option – Allows optional smoothing of the CPI trend line.\nColour by Year – Enables users to colour the time-series plot by year.\nFacet Columns – Allows multiple CPI series to be displayed across facets.\nLag Selection – Controls the number of lags used in the ACF analysis.\nReset Button – Restores all filters to their default values.\n\n\n\n2.3.2 Main Visualisation Panel\nThe main visualisation panel presents the outputs of the exploratory analysis. It includes a tab-based layout for trend, seasonality, and autocorrelation views, as well as a raw data table with export and column display options."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#objective-2",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#objective-2",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "3.1 Objective",
+    "text": "3.1 Objective\nThe objective of this module is to analyse the structural components of Singapore CPI time series. Time series decomposition separates the observed series into three interpretable components: trend, seasonality, and remainder.\nUnderstanding these components helps identify long-term inflation patterns, recurring seasonal effects, and irregular shocks before applying forecasting models."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#stl-decomposition",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#stl-decomposition",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "3.2 STL Decomposition",
+    "text": "3.2 STL Decomposition\nSeasonal and Trend decomposition using Loess (STL) is applied to all CPI series. STL is robust to outliers and is suitable for CPI data because it can accommodate changing seasonal patterns over time, especially during periods affected by structural shocks such as the COVID-19 pandemic.\nEach CPI variable is converted into a monthly time series starting from January 2020 with a frequency of 12 observations per year. STL decomposition is then applied to separate the series into its trend, seasonal, and remainder components.\n\ndata &lt;- cpi_data_raw\ncpi_cols &lt;- names(data)[names(data) != \"Date\"]\n\nknitr::kable(data.frame(CPI_Series = cpi_cols),\n             caption = \"List of CPI series used in the analysis\")\n\n\nList of CPI series used in the analysis\n\n\nCPI_Series\n\n\n\n\nConsumer Price Index (CPI)\n\n\nCPI: Food\n\n\nCPI: Food Excl Food & Beverage Serving Services (FFBSS)\n\n\nCPI: FFBSS: Rice & Cereals\n\n\nCPI: FFBSS: Meat\n\n\nCPI: FFBSS: Fish & Seafood\n\n\nCPI: FFBSS: Milk, Other Dairy & Eggs\n\n\nCPI: FFBSS: Oils & Fats\n\n\nCPI: FFBSS: Fruits & Nuts (FN)\n\n\nCPI: FFBSS: Vegetables\n\n\nCPI: FFBSS: Sugar, Confectionery & Desserts (SCD)\n\n\nCPI: FFBSS: Ready-Made & Oth. Food Nec\n\n\nCPI: FFBSS: Non-Alcoholic Beverages\n\n\nCPI: Clothing and Footwear (C&F)\n\n\nCPI: C&F: Clothing\n\n\nCPI: C&F: Footwear\n\n\nCPI: Housing & Utilities\n\n\nCPI: Housing & Utilities: Accommodation\n\n\nCPI: Housing & Utilities: Utilities & Other Fuels\n\n\nCPI: Household Durables & Services (HDS)\n\n\nCPI: HDS: Furniture & Furnishings\n\n\nCPI: HDS: Household Textiles\n\n\nCPI: HDS: Household Appliances\n\n\nCPI: HDS: Glassware, Tableware & Household Utensils\n\n\nCPI: HDS: Tools & Equipment For House & Garden\n\n\nCPI: HDS: Household Services & Supplies (HSS)\n\n\nCPI: Health\n\n\nCPI: Health: Medicines & Health Products\n\n\nCPI: Health: Outpatient Services\n\n\nCPI: Health: Inpatient Services\n\n\nCPI: Health: Other Health Services (OHS)\n\n\nCPI: Health: Health Insurance\n\n\nCPI: Transport\n\n\nCPI: Transport: Private Transport\n\n\nCPI: Transport: Land Transport Services\n\n\nCPI: Transport: Other Transport Services\n\n\nCPI: Transport: Transport Services Of Goods\n\n\nCPI: Information & Communication (InfoComm)\n\n\nCPI: InfoComm: Information & Communication Equipment\n\n\nCPI: InfoComm: Software Excl Games\n\n\nCPI: InfoComm: InfoComm Services\n\n\nCPI: Recreation, Sport & Culture (RSC)\n\n\nCPI: RSC: Recreational & Cultural Goods\n\n\nCPI: RSC: Other Recreational Goods (ORG)\n\n\nCPI: RSC: Garden Products & Pets\n\n\nCPI: RSC: Recreational Services\n\n\nCPI: RSC: Cultural Services\n\n\nCPI: RSC: Newspapers, Books & Stationery (NBS)\n\n\nCPI: RSC: Holiday Expenses\n\n\nCPI: Education\n\n\nCPI: Education: General, Vocational & Higher Education (GVH Edu)\n\n\nCPI: Education: Private Tuition & Other Educational Courses\n\n\nCPI: Education: School Textbooks & Study Guides\n\n\nCPI: Miscellaneous Goods & Services (MG&S)\n\n\nCPI: MG&S: Personal Care\n\n\nCPI: MG&S: Alcoholic Drinks & Tobacco\n\n\nCPI: MG&S: Personal Effects\n\n\nCPI: MG&S: Social Services\n\n\nCPI: MG&S: Other Miscellaneous Services\n\n\nCPI: Food & Beverage Serving Services (FBSS)\n\n\nCPI: FBSS: Restaurants, Cafes & Pubs\n\n\nCPI: FBSS: Fast Food\n\n\nCPI: FBSS: Hawker Food Incl. Food Courts (HF&FC)\n\n\nCPI: FBSS: Oth Catering Services, Incl Vending Machines\n\n\n\n\ncpi_cols &lt;- names(data)[sapply(data, is.numeric)]\n\nstl_list &lt;- list()\n\nfor (col in cpi_cols) {\n  ts_data &lt;- ts(data[[col]], start = c(2020, 1), frequency = 12)\n  stl_list[[col]] &lt;- stl(ts_data, s.window = \"periodic\")\n}"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#observed-series-summary",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#observed-series-summary",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "3.3 Observed Series Summary",
+    "text": "3.3 Observed Series Summary\nTo provide a concise overview of the observed CPI series, summary statistics are calculated for each category. These include the starting value in January 2020, the ending value in December 2025, the total increase, and the percentage increase over the study period.\n\ntable1_list &lt;- list()\n\nfor (col in cpi_cols) {\n  ts_data &lt;- ts(data[[col]], start = c(2020, 1), frequency = 12)\n\n  start_value    &lt;- ts_data[1]\n  end_value      &lt;- tail(ts_data, 1)\n  total_increase &lt;- end_value - start_value\n  increase_rate  &lt;- (total_increase / start_value) * 100\n\n  table1_list[[col]] &lt;- data.frame(\n    CPI    = col,\n    Metric = c(\n      \"Start CPI (2020-01)\",\n      \"End CPI (2025-12)\",\n      \"Total Increase\",\n      \"Increase Rate\"\n    ),\n    Value  = c(\n      round(start_value, 3),\n      round(end_value, 3),\n      round(total_increase, 3),\n      paste0(round(increase_rate, 1), \"%\")\n    )\n  )\n}\n\nknitr::kable(table1_list[[1]])\n\n\n\n\nCPI\nMetric\nValue\n\n\n\n\nConsumer Price Index (CPI)\nStart CPI (2020-01)\n86.121\n\n\nConsumer Price Index (CPI)\nEnd CPI (2025-12)\n101.333\n\n\nConsumer Price Index (CPI)\nTotal Increase\n15.212\n\n\nConsumer Price Index (CPI)\nIncrease Rate\n17.7%"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#decomposition-analysis-and-interpretation",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#decomposition-analysis-and-interpretation",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "3.4 Decomposition Analysis and Interpretation",
+    "text": "3.4 Decomposition Analysis and Interpretation\nThe magnitude of the trend, seasonal, and remainder components is measured and normalised by the mean of each series. Based on these ratios, the decomposition results can be interpreted in terms of the relative strength of long-term trend, seasonal movement, and irregular fluctuation.\n\ntable2_list &lt;- list()\n\nfor (col in cpi_cols) {\n\n  ts_data &lt;- ts(data[[col]], start = c(2020, 1), frequency = 12)\n  fit     &lt;- stl(ts_data, s.window = \"periodic\")\n\n  trend_vals    &lt;- na.omit(as.numeric(fit$time.series[, \"trend\"]))\n  seasonal_vals &lt;- na.omit(as.numeric(fit$time.series[, \"seasonal\"]))\n  residual_vals &lt;- na.omit(as.numeric(fit$time.series[, \"remainder\"]))\n\n  trend_change   &lt;- tail(trend_vals, 1) - head(trend_vals, 1)\n  seasonal_range &lt;- max(seasonal_vals) - min(seasonal_vals)\n  residual_range &lt;- max(residual_vals) - min(residual_vals)\n\n  series_mean &lt;- mean(ts_data, na.rm = TRUE)\n\n  trend_ratio    &lt;- abs(trend_change) / series_mean\n  seasonal_ratio &lt;- seasonal_range / series_mean\n  residual_ratio &lt;- residual_range / series_mean\n\n  table2_list[[col]] &lt;- data.frame(\n    CPI = col,\n    Trend_Change = round(trend_change, 3),\n    Seasonal_Range = round(seasonal_range, 3),\n    Residual_Range = round(residual_range, 3),\n    Trend_Ratio = round(trend_ratio, 3),\n    Seasonal_Ratio = round(seasonal_ratio, 3),\n    Residual_Ratio = round(residual_ratio, 3)\n  )\n}\n\nknitr::kable(\n  table2_list[[1]],\n  caption = \"STL Decomposition summary for one CPI series\"\n)\n\n\nSTL Decomposition summary for one CPI series\n\n\n\n\n\n\n\n\n\n\n\nCPI\nTrend_Change\nSeasonal_Range\nResidual_Range\nTrend_Ratio\nSeasonal_Ratio\nResidual_Ratio\n\n\n\n\nConsumer Price Index (CPI)\n15.82\n0.733\n1.237\n0.168\n0.008\n0.013"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#key-findings",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#key-findings",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "3.5 Key Findings",
+    "text": "3.5 Key Findings\nThe decomposition results show that the trend component exhibits a visible structural break around mid-2021, reflecting post-pandemic inflationary pressures and supply chain disruptions. Seasonal variation is particularly noticeable in categories such as food and beverages, where recurring patterns are observed around the January–February Lunar New Year period and the June–August school holiday season."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#ui-design-1",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#ui-design-1",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "3.6 UI Design",
+    "text": "3.6 UI Design\nThe following shows the prototype of the Time Series Decomposition module in the proposed R Shiny application.\n\n\n\n  \n    \n    \n      Prototype of the CPI time series decomposition dashboard.\n    \n  \n\n\nThe Decomposition module is designed to help users understand the structural components of CPI time series before applying forecasting models. The interface allows users to interactively explore the trend, seasonal, and remainder components generated from STL decomposition.\nThe interface consists of two main sections: a Control Panel and a Decomposition Visualisation Panel.\n\n3.6.1 Control Panel\nThe control panel allows users to configure the decomposition analysis using several interactive inputs:\n\nCPI Series Selector – Allows users to choose the CPI category or sub-index to analyse.\nDecomposition Method Selector – Allows users to choose the decomposition method (e.g., STL).\n\n\n\n3.6.2 Decomposition Visualisation Panel\nThe visualisation panel displays the decomposition results of the selected CPI series. The output typically includes:\n\nObserved Series Plot showing the original CPI time series.\nTrend Component Plot showing the long-term movement of CPI.\nSeasonal Component Plot illustrating recurring seasonal patterns.\nRemainder Component Plot capturing irregular fluctuations that are not explained by trend or seasonality.\n\nThese interactive plots allow users to visually inspect how inflation dynamics evolve over time and identify structural shifts or seasonal patterns in different CPI categories."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#module-objective",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#module-objective",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "4.1 Module Objective",
+    "text": "4.1 Module Objective\nThe objective of the Forecasting module is to generate reliable predictions of Singapore CPI using multiple time-series forecasting models.\nThis module compares several forecasting approaches, including classical statistical models and machine learning methods, to evaluate their forecasting performance.\nBy comparing models using evaluation metrics such as RMSE, MAE, and MASE, the best-performing model for each CPI series is selected and used to generate future forecasts."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#data-preparation-1",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#data-preparation-1",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "4.2 Data Preparation",
+    "text": "4.2 Data Preparation\nBefore model training, the CPI dataset is reshaped into a long format to allow modelling across multiple CPI categories.\nThe time series is padded to ensure continuous monthly observations and missing values are imputed where necessary. This ensures that each CPI category can be modelled consistently within the forecasting pipeline.\n\ncpi_data_long &lt;- cpi_data_raw %&gt;%\n  pivot_longer(\n    cols = -Date,\n    names_to = \"Category\",\n    values_to = \"CPI_Value\"\n  ) %&gt;%\n  mutate(Date = as.Date(Date)) %&gt;%\n  arrange(Category, Date)"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#forecasting-models",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#forecasting-models",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "4.3 Forecasting Models",
+    "text": "4.3 Forecasting Models\nFour forecasting models are implemented and compared in this module. Each model captures different characteristics of time series data.\n\n\n\nModel\nType\nDescription\n\n\n\n\nETS\nClassical\nExponential smoothing model capturing trend and seasonality\n\n\nAuto-ARIMA\nClassical\nAutomatically selects optimal ARIMA parameters\n\n\nARIMA + XGBoost\nHybrid\nCombines ARIMA with machine learning residual modelling\n\n\nProphet\nAdditive Regression\nRobust forecasting model designed for business time series"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#model-training",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#model-training",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "4.4 Model Training",
+    "text": "4.4 Model Training\nEach forecasting model is trained on historical CPI data. The training dataset includes observations up to the selected cutoff date, while the remaining observations are used as a test set for evaluation.\n\ntrain_data &lt;- cpi_data_long %&gt;%\n  filter(Date &lt;= as.Date(\"2025-01-01\"))\n\ntest_data &lt;- cpi_data_long %&gt;%\n  filter(Date &gt; as.Date(\"2025-01-01\"))"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#model-evaluation",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#model-evaluation",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "4.5 Model Evaluation",
+    "text": "4.5 Model Evaluation\nForecasting models are evaluated using multiple accuracy metrics to ensure reliable predictions. The evaluation focuses on how closely the predicted CPI values match the observed values in the test dataset.\n\n4.5.1 Evaluation Metrics\nThe forecasting models are evaluated using the following performance metrics:\n\nRMSE (Root Mean Squared Error): measures the average magnitude of prediction errors, with larger errors receiving greater penalty.\nMAE (Mean Absolute Error): measures the average absolute difference between actual and predicted values.\nMASE (Mean Absolute Scaled Error): provides a scale-independent measure of forecast accuracy, allowing comparison across series.\n\nThe model with the lowest RMSE is selected as the best-performing model for each CPI series."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#ui-design-2",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#ui-design-2",
+    "title": "Take-home_Ex02 - Prototype of CPI forecasting Interactive Dashboard",
+    "section": "4.6 UI Design",
+    "text": "4.6 UI Design\nThe following shows the prototype of the Forecasting module in the proposed R Shiny application.\n\n\n\n  \n    \n    \n      Prototype of the CPI forecasting dashboard.\n    \n  \n\n\nThe Forecasting module enables users to generate CPI forecasts interactively using multiple forecasting models.\nThe interface is organised into two main components: a Control Panel and a Forecast Visualisation Panel.\n\n4.6.1 Control Panel\nThe control panel allows users to configure forecasting parameters through several interactive inputs:\n\nCPI Series Selector: allows users to select the CPI category to be forecasted.\nModel Selector: allows users to choose one or more forecasting models.\nForecast Horizon: allows users to specify the number of months ahead to forecast.\nConfidence Interval Toggle: enables users to display or hide forecast confidence intervals.\n\n\n\n4.6.2 Forecast Visualisation Panel\nThe visualisation panel presents the forecasting results for the selected CPI series.\nThe outputs typically include:\n\nHistorical Time Series Plot\nForecasted CPI Values\nConfidence Interval Bands\nModel Comparison Chart\n\nThese interactive visualisations allow users to compare model performance and better understand projected inflation trends."
   }
 ]
